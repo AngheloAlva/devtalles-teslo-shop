@@ -19,7 +19,7 @@ export default {
 			},
 		},
 		{
-			files: "*.tsx",
+			files: ["*.tsx", "*.ts"],
 			options: {
 				parser: "typescript",
 			},
