@@ -3,17 +3,17 @@ interface SeedProduct {
 	images: string[]
 	inStock: number
 	price: number
-	sizes: Sizes[]
+	sizes: Size[]
 	slug: string
 	tags: string[]
 	title: string
-	type: Types
+	type: Type
 	gender: Category
 }
 
-type Category = "men" | "women" | "kid" | "unisex"
-type Sizes = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL"
-type Types = "shirts" | "pants" | "hoodies" | "hats"
+export type Category = "men" | "women" | "kid" | "unisex"
+export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL"
+export type Type = "shirts" | "pants" | "hoodies" | "hats"
 
 interface SeedData {
 	products: SeedProduct[]
