@@ -31,10 +31,10 @@ export default function TopMenu(): React.ReactElement {
 					Women
 				</Link>
 				<Link
-					href={"/category/kids"}
+					href={"/category/kid"}
 					className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100"
 				>
-					Kids
+					Kid
 				</Link>
 			</div>
 
