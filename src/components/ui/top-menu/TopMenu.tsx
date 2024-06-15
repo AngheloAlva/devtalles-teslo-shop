@@ -1,8 +1,13 @@
-import { titleFont } from "@/config/fonts"
-import Link from "next/link"
+"use client"
+
 import { IoCartOutline, IoSearchOutline } from "react-icons/io5"
+import { titleFont } from "@/config/fonts"
+import { useUIStore } from "@/store"
+import Link from "next/link"
 
 export default function TopMenu(): React.ReactElement {
+	const openSideMenu = useUIStore((state) => state.openSideMenu)
+
 	return (
 		<nav className="flex w-full items-center justify-between px-5">
 			<div>
@@ -45,7 +50,12 @@ export default function TopMenu(): React.ReactElement {
 						<IoCartOutline className="h-5 w-5" />
 					</div>
 				</Link>
-				<button className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100">Menu</button>
+				<button
+					onClick={openSideMenu}
+					className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100"
+				>
+					Menu
+				</button>
 			</div>
 		</nav>
 	)
