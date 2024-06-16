@@ -1,3 +1,4 @@
+import { ValidTypes } from "../interfaces/product.interface"
 interface SeedProduct {
 	description: string
 	images: string[]
@@ -16,10 +17,12 @@ export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL"
 export type Type = "shirts" | "pants" | "hoodies" | "hats"
 
 interface SeedData {
+	categories: string[]
 	products: SeedProduct[]
 }
 
 export const initialData: SeedData = {
+	categories: ["Hats", "Shirts", "Hoodies", "Pants"],
 	products: [
 		{
 			description:
