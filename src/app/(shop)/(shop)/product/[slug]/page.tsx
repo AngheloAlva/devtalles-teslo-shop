@@ -6,6 +6,7 @@ import { titleFont } from "@/config/fonts"
 import { notFound } from "next/navigation"
 
 import type { Metadata, ResolvingMetadata } from "next"
+import AddToCart from "./ui/AddToCart"
 
 export async function generateMetadata(
 	{ params }: ProductPageProps,
@@ -17,11 +18,11 @@ export async function generateMetadata(
 	return {
 		title: product?.title || "Product not found",
 		description: product?.description || "Product not found",
-		openGraph: {
-			title: product?.title || "Product not found",
-			description: product?.description || "Product not found",
-			images: [`/products/${product?.images[1]}`],
-		},
+		// openGraph: {
+		// 	title: product?.title || "Product not found",
+		// 	description: product?.description || "Product not found",
+		// 	images: [`/products/${product?.images[1]}`],
+		// },
 	}
 }
 
@@ -48,11 +49,7 @@ export default async function PoductBySlugPage({
 				</h1>
 				<p className="mb-5 text-lg">${product.price}</p>
 
-				<SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
-
-				<QuantitySelector quantity={0} />
-
-				<button className="btn-primary my-5">Add to cart</button>
+				<AddToCart product={product} />
 
 				<h3 className="text-sm font-bold">Description</h3>
 				<p className="font-light">{product.description}</p>

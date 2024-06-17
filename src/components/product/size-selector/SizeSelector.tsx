@@ -1,9 +1,10 @@
-import { Size } from "@/seed/seed"
+import type { Size } from "@/seed/seed"
 import clsx from "clsx"
 
 export default function SizeSelector({
 	selectedSize,
 	availableSizes,
+	onSizeChanged,
 }: SizeSelectorProps): React.ReactElement {
 	return (
 		<div className="my-5">
@@ -12,6 +13,7 @@ export default function SizeSelector({
 			<div className="flex">
 				{availableSizes.map((size) => (
 					<button
+						onClick={() => onSizeChanged(size)}
 						className={clsx("mx-2 text-lg hover:underline", {
 							underline: size === selectedSize,
 						})}
@@ -26,6 +28,7 @@ export default function SizeSelector({
 }
 
 interface SizeSelectorProps {
-	selectedSize: Size
+	selectedSize: Size | undefined
 	availableSizes: Size[]
+	onSizeChanged: (size: Size) => void
 }
