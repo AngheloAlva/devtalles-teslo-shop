@@ -1,11 +1,35 @@
-import { ProductSlideshow, QuantitySelector, SizeSelector } from "@/components"
+export const revalidate = 604800 // 7 days
+
+import { ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from "@/components"
+import { getProductBySlug } from "@/actions"
 import { titleFont } from "@/config/fonts"
-import { initialData } from "@/seed/seed"
 import { notFound } from "next/navigation"
 
-export default function PoductBySlugPage({ params }: ProductPageProps): React.ReactElement {
+import type { Metadata, ResolvingMetadata } from "next"
+
+export async function generateMetadata(
+	{ params }: ProductPageProps,
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const slug = params.slug
+	const product = await getProductBySlug(slug)
+
+	return {
+		title: product?.title || "Product not found",
+		description: product?.description || "Product not found",
+		openGraph: {
+			title: product?.title || "Product not found",
+			description: product?.description || "Product not found",
+			images: [`/products/${product?.images[1]}`],
+		},
+	}
+}
+
+export default async function PoductBySlugPage({
+	params,
+}: ProductPageProps): Promise<React.ReactElement> {
 	const { slug } = params
-	const product = initialData.products.find((product) => product.slug === slug)
+	const product = await getProductBySlug(slug)
 
 	if (!product) {
 		notFound()
@@ -18,7 +42,10 @@ export default function PoductBySlugPage({ params }: ProductPageProps): React.Re
 			</div>
 
 			<div className="col-span-1 px-5">
-				<h1 className={`${titleFont.className} text-xl font-bold antialiased`}>{product.title}</h1>
+				<StockLabel slug={slug} />
+				<h1 className={`${titleFont.className} mt-2 text-xl font-bold antialiased`}>
+					{product.title}
+				</h1>
 				<p className="mb-5 text-lg">${product.price}</p>
 
 				<SizeSelector availableSizes={product.sizes} selectedSize={product.sizes[0]} />
