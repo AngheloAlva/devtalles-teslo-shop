@@ -5,9 +5,19 @@ import prisma from "@/lib/prisma"
 export const getPaginatedProductsWithImages = async ({
 	page = 1,
 	take = 12,
+	gender,
 }: PaginationOptions) => {
 	if (isNaN(page)) page = 1
 	if (page < 1) page = 1
+
+	let filters = {}
+
+	if (gender) {
+		filters = {
+			...filters,
+			gender,
+		}
+	}
 
 	try {
 		const products = await prisma.product.findMany({
@@ -21,9 +31,12 @@ export const getPaginatedProductsWithImages = async ({
 					},
 				},
 			},
+			where: filters,
 		})
 
-		const totalCount = await prisma.product.count()
+		const totalCount = await prisma.product.count({
+			where: filters,
+		})
 		const totalPages = Math.ceil(totalCount / take)
 
 		return {
@@ -42,4 +55,5 @@ export const getPaginatedProductsWithImages = async ({
 interface PaginationOptions {
 	page?: number
 	take?: number
+	gender?: string
 }

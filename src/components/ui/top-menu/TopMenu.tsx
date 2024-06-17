@@ -18,22 +18,16 @@ export default function TopMenu(): React.ReactElement {
 			</div>
 
 			<div className="hidden sm:block">
-				<Link
-					href={"/category/men"}
-					className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100"
-				>
+				<Link href={"/gender/men"} className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100">
 					Men
 				</Link>
 				<Link
-					href={"/category/women"}
+					href={"/gender/women"}
 					className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100"
 				>
 					Women
 				</Link>
-				<Link
-					href={"/category/kid"}
-					className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100"
-				>
+				<Link href={"/gender/kid"} className="mr-2 rounded-md p-2 transition-all hover:bg-gray-100">
 					Kid
 				</Link>
 			</div>
