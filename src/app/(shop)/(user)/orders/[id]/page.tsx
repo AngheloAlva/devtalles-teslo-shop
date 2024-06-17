@@ -7,7 +7,7 @@ import { IoCardOutline } from "react-icons/io5"
 
 const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]]
 
-export default function ({ params }: IProps): React.ReactElement {
+export default function OrderByIdPage({ params }: IProps): React.ReactElement {
 	const { id } = params
 
 	return (

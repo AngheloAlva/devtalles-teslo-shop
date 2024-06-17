@@ -2,7 +2,7 @@ import { IoCardOutline } from "react-icons/io5"
 import { Title } from "@/components"
 import Link from "next/link"
 
-export default function () {
+export default function OrdersPage() {
 	return (
 		<>
 			<Title title="Orders" />

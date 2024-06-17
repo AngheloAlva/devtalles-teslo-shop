@@ -3,7 +3,7 @@ import { titleFont } from "@/config/fonts"
 import { initialData } from "@/seed/seed"
 import { notFound } from "next/navigation"
 
-export default function ({ params }: ProductPageProps): React.ReactElement {
+export default function PoductBySlugPage({ params }: ProductPageProps): React.ReactElement {
 	const { slug } = params
 	const product = initialData.products.find((product) => product.slug === slug)
 

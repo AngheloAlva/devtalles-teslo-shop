@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 
 const productsInCart = [initialData.products[0], initialData.products[1], initialData.products[2]]
 
-export default function (): React.ReactElement {
+export default function CartPage(): React.ReactElement {
 	if (productsInCart.length === 0) {
 		redirect("/empty")
 	}
