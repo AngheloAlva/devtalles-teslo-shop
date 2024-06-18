@@ -15,6 +15,8 @@ export default async function ProfilePage(): Promise<React.ReactElement> {
 			<Title title="Profile" />
 
 			<pre>{JSON.stringify(session?.user, null, 2)}</pre>
+
+			<h3>{session?.user.role}</h3>
 		</div>
 	)
 }

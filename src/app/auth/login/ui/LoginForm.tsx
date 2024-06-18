@@ -1,13 +1,21 @@
 "use client"
 
-import { IoInformationOutline } from "react-icons/io5"
 import { useFormState, useFormStatus } from "react-dom"
+import { IoInformationOutline } from "react-icons/io5"
+import { useRouter } from "next/navigation"
 import { authenticate } from "@/actions"
+import { useEffect } from "react"
 import Link from "next/link"
 import clsx from "clsx"
 
 export default function LoginForm(): React.ReactElement {
 	const [state, dispatch] = useFormState(authenticate, undefined)
+
+	useEffect(() => {
+		if (state === "Success") {
+			window.location.replace("/")
+		}
+	}, [state])
 
 	return (
 		<form action={dispatch} className="flex flex-col">

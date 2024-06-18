@@ -1,7 +1,8 @@
 "use client"
 
+import { useSession } from "next-auth/react"
 import { useUIStore } from "@/store"
-import Link from "next/link"
+import { logout } from "@/actions"
 import clsx from "clsx"
 import {
 	IoCloseOutline,
@@ -13,11 +14,15 @@ import {
 	IoSearchOutline,
 	IoTicketOutline,
 } from "react-icons/io5"
-import { logout } from "@/actions"
+import SidebarItem from "./SidebarItem"
 
 export default function Sidebar(): React.ReactElement {
 	const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen)
 	const closeSideMenu = useUIStore((state) => state.closeSideMenu)
+
+	const { data: session } = useSession()
+	const isAuthenticated = !!session?.user
+	const isAdmin = session?.user?.role === "admin"
 
 	return (
 		<div className="">
@@ -53,66 +58,56 @@ export default function Sidebar(): React.ReactElement {
 					/>
 				</div>
 
-				<Link
-					href={"/profile"}
-					onClick={closeSideMenu}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoPersonOutline size={30} />
-					<span className="ml-3 text-xl">Profile</span>
-				</Link>
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoTicketOutline size={30} />
-					<span className="ml-3 text-xl">Orders</span>
-				</Link>
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoLogInOutline size={30} />
-					<span className="ml-3 text-xl">Login</span>
-				</Link>
-				<button
-					onClick={() => logout()}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoLogOutOutline size={30} />
-					<span className="ml-3 text-xl">Logout</span>
-				</button>
+				{isAuthenticated ? (
+					<>
+						<SidebarItem onClick={logout} title="Logout" icon={<IoLogOutOutline size={30} />} />
 
-				<div className="my-10 h-px w-full bg-gray-200" />
+						<SidebarItem
+							path="/profile"
+							onClick={closeSideMenu}
+							title="Profile"
+							icon={<IoPersonOutline size={30} />}
+						/>
+						<SidebarItem
+							path="/orders"
+							onClick={closeSideMenu}
+							title="Orders"
+							icon={<IoTicketOutline size={30} />}
+						/>
+					</>
+				) : (
+					<SidebarItem
+						path="/auth/login"
+						title="Login"
+						onClick={closeSideMenu}
+						icon={<IoLogInOutline size={30} />}
+					/>
+				)}
 
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoShirtOutline size={30} />
-					<span className="ml-3 text-xl">Products</span>
-				</Link>
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoTicketOutline size={30} />
-					<span className="ml-3 text-xl">Orders</span>
-				</Link>
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoTicketOutline size={30} />
-					<span className="ml-3 text-xl">Orders</span>
-				</Link>
-				<Link
-					href={"/"}
-					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
-				>
-					<IoPeopleOutline size={30} />
-					<span className="ml-3 text-xl">Users</span>
-				</Link>
+				{isAdmin && (
+					<>
+						<div className="my-10 h-px w-full bg-gray-200" />
+
+						<SidebarItem
+							path="/products"
+							onClick={closeSideMenu}
+							title="Products"
+							icon={<IoShirtOutline size={30} />}
+						/>
+						<SidebarItem
+							path="/"
+							onClick={closeSideMenu}
+							title="Orders"
+							icon={<IoTicketOutline size={30} />}
+						/>
+						<SidebarItem
+							path="/"
+							onClick={closeSideMenu}
+							title="Users"
+							icon={<IoPeopleOutline size={30} />}
+						/>
+					</>
+				)}
 			</nav>
 		</div>
 	)
