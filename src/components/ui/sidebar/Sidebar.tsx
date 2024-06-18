@@ -6,13 +6,14 @@ import clsx from "clsx"
 import {
 	IoCloseOutline,
 	IoLogInOutline,
+	IoShirtOutline,
 	IoLogOutOutline,
 	IoPeopleOutline,
 	IoPersonOutline,
 	IoSearchOutline,
-	IoShirtOutline,
 	IoTicketOutline,
 } from "react-icons/io5"
+import { logout } from "@/actions"
 
 export default function Sidebar(): React.ReactElement {
 	const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen)
@@ -53,7 +54,8 @@ export default function Sidebar(): React.ReactElement {
 				</div>
 
 				<Link
-					href={"/"}
+					href={"/profile"}
+					onClick={closeSideMenu}
 					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
 				>
 					<IoPersonOutline size={30} />
@@ -73,13 +75,13 @@ export default function Sidebar(): React.ReactElement {
 					<IoLogInOutline size={30} />
 					<span className="ml-3 text-xl">Login</span>
 				</Link>
-				<Link
-					href={"/"}
+				<button
+					onClick={() => logout()}
 					className="mt-10 flex items-center rounded p-2 transition-colors hover:bg-gray-100"
 				>
 					<IoLogOutOutline size={30} />
 					<span className="ml-3 text-xl">Logout</span>
-				</Link>
+				</button>
 
 				<div className="my-10 h-px w-full bg-gray-200" />
 
