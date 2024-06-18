@@ -1,4 +1,5 @@
-import { ValidTypes } from "../interfaces/product.interface"
+import bcryptjs from "bcryptjs"
+
 interface SeedProduct {
 	description: string
 	images: string[]
@@ -12,16 +13,38 @@ interface SeedProduct {
 	gender: Category
 }
 
+interface SeedUser {
+	email: string
+	password: string
+	name: string
+	role: "admin" | "user"
+}
+
 export type Category = "men" | "women" | "kid" | "unisex"
 export type Size = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL"
 export type Type = "shirts" | "pants" | "hoodies" | "hats"
 
 interface SeedData {
+	users: SeedUser[]
 	categories: string[]
 	products: SeedProduct[]
 }
 
 export const initialData: SeedData = {
+	users: [
+		{
+			email: "anghelo@gmail.com",
+			name: "Anghelo",
+			password: bcryptjs.hashSync("123456"),
+			role: "admin",
+		},
+		{
+			email: "oliver@gmail.com",
+			name: "Oliver",
+			password: bcryptjs.hashSync("123456"),
+			role: "user",
+		},
+	],
 	categories: ["Hats", "Shirts", "Hoodies", "Pants"],
 	products: [
 		{
