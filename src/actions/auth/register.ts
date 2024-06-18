@@ -9,7 +9,7 @@ export const registerUser = async (name: string, email: string, password: string
 			data: {
 				name,
 				email: email.toLowerCase(),
-				password: await bcryptjs.hash(password, 10),
+				password: bcryptjs.hashSync(password),
 			},
 			select: {
 				id: true,
